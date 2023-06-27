@@ -28,6 +28,13 @@ public class UsersController {
 	 * - 요청방식이 다르면 실행되지 않는다.
 	 */
 	
+	@RequestMapping("/users/delete")
+	public ModelAndView delete(HttpSession session, ModelAndView mView) {
+		service.deleteUser(session, mView);
+		mView.setViewName("users/delete");
+		return mView;
+	}
+	
 	@RequestMapping(value = "users/update", method = RequestMethod.POST)
 	public ModelAndView updateUser(HttpSession session, UsersDto dto, ModelAndView mView) {
 		//서비스를 이용해서 개인정보를 수정하고

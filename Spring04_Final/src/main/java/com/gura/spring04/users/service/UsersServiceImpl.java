@@ -140,7 +140,14 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public void deleteUser(HttpSession session, ModelAndView mView) {
-		// TODO Auto-generated method stub
+		//로그인된 아이디를 얻어와서
+		String id=(String)session.getAttribute("id");
+		//해당 정보를 DB에서 삭제하고
+		dao.delete(id);
+		//로그아웃처리
+		session.removeAttribute("id");
+		//ModelAndView 객체에 탈퇴한 회원의 아이디를 담아준다(MAW에서 한번 활용하려고ㅇㅇ)
+		mView.addObject("id", id);
 		
 	}
 
