@@ -1,4 +1,4 @@
-package com.gura.hello;
+package com.gura.spring04;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -24,14 +24,5 @@ public class HomeController {
 		// /WEB-INF/views/home.jsp 페이지로 forward 이동해서 응답하겠다는 의미
 		// "home" 이라는 문자열을 리턴하면 앞에 "/WEB-INF/views/" 뒤에 ".jsp"가 자동으로 붙는다.
 		return "home";
-	}
-	@RequestMapping("/fortune")
-	public String fortune(HttpServletRequest request) {
-		//오늘의 운세라고 가정하자
-		String fortuneToday = "오늘은 되는게 없어요ㅜㅜ";
-		// "fortuneToday" 라는 키값으로 String type 데이터를 담는다.
-		request.setAttribute("fortuneToday", fortuneToday);
-		// "/WEB-INF/views/" + "test/fortune" + ".jsp"
-		return "test/fortune";
 	}
 }
