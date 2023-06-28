@@ -11,6 +11,10 @@
 <body>
 	<div class="container">
 	<h1>인덱스 페이지 입니다.</h1>
+		<ul>
+			<li><a href="file/list">자료실 목록보기</a></li>
+		</ul>
+	
 		<c:choose>
 			<c:when test="${empty sessionScope.id }">
 				<a href="${pageContext.request.contextPath }/users/loginform">로그인</a>
