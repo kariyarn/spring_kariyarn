@@ -14,6 +14,7 @@
 		<ul>
 			<li><a href="file/list">자료실 목록보기</a></li>
 			<li><a href="${pageContext.request.contextPath }/cafe/list">글 목록보기</a></li>
+			<li><a href="${pageContext.request.contextPath }/gallery/list">갤러리 목록</a></li>
 		</ul>
 	
 		<c:choose>

@@ -10,6 +10,7 @@ public class CafeDto {
 	private int startRowNum;
 	private int endRowNum; //이전글의 글 번호
 	private int prevNum; //다음글의 글 번호
+	private int nextNum;
 	
 	public CafeDto(int num, String writer, String title, String content, int viewCount, String regdate, int startRowNum,
 			int endRowNum, int prevNum, int nextNum) {
@@ -106,7 +107,6 @@ public class CafeDto {
 		this.nextNum = nextNum;
 	}
 
-	private int nextNum;
 	
 	public CafeDto() {}
 }

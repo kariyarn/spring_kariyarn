@@ -342,6 +342,7 @@
             updateLinks[i].addEventListener("click", function(){
                //click 이벤트가 일어난 바로 그 요소의 data-num 속성의 value 값을 읽어온다. 
                const num=this.getAttribute("data-num"); //댓글의 글번호
+               //숨겨진 댓글 수정폼을 보이도록 한다.
                document.querySelector("#updateForm"+num).style.display="block";
                
             });
@@ -423,6 +424,7 @@
             //폼에 submit 이벤트가 일어 났을때 호출되는 함수 등록 
             updateForms[i].addEventListener("submit", function(e){
                //submit 이벤트가 일어난 form 의 참조값을 form 이라는 변수에 담기 
+               //여기에서 this = e.target이나 마찬가지이다.
                const form=this;
                //폼 제출을 막은 다음 
                e.preventDefault();
@@ -434,11 +436,11 @@
                .then(function(data){
                   if(data.isSuccess){
                      /*
-                        document.querySelector() 는 html 문서 전체에서 특정 요소의 
-                        참조값을 찾는 기능
-                        
-                        특정문서의 참조값.querySelector() 는 해당 문서 객체의 자손 요소 중에서
-                        특정 요소의 참조값을 찾는 기능
+			            document.querySelector() 는 html 문서 전체에서 특정 요소의 
+			                        참조값을 찾는 기능
+			                        
+			                        특정문서의 참조값.querySelector() 는 해당 문서 객체의 자손 요소 중에서
+			                        특정 요소의 참조값을 찾는 기능
                      */
                      const num=form.querySelector("input[name=num]").value;
                      const content=form.querySelector("textarea[name=content]").value;
