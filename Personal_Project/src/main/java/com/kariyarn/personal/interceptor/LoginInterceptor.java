@@ -37,7 +37,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 			
 			//3. 로그인을 하지 않았다면  /users/loginform.do 페이지로 리다일렉트 이동 시킨다. (HttpServletResponse)
 			String cPath=request.getContextPath();
-			response.sendRedirect(cPath+"/users/loginform?url="+encodedUrl);
+			response.sendRedirect(cPath+"/member/loginform?url="+encodedUrl);
 			return false;
 		}
 		

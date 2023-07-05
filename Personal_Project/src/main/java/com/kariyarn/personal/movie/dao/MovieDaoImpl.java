@@ -16,49 +16,41 @@ public class MovieDaoImpl implements MovieDao{
 
 	@Override
 	public List<MovieDto> getList(MovieDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+		return session.selectList("movie.getList", dto);
 	}
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return session.selectOne("movie.getCount");
 	}
 
 	@Override
 	public void insert(MovieDto dto) {
-		// TODO Auto-generated method stub
-		
+		session.insert("movie.insert", dto);
 	}
 
 	@Override
 	public MovieDto getData(int num) {
-		// TODO Auto-generated method stub
-		return null;
+		return session.selectOne("movie.getData", num);
 	}
 
 	@Override
 	public int thumsupCount() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int thumsdownCount() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public void delete(int num) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void update(MovieDto dto) {
-		// TODO Auto-generated method stub
 		
 	}
 

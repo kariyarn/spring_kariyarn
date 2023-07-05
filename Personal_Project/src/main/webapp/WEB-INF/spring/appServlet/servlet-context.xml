@@ -92,6 +92,7 @@
 		<interceptor>
 			<mapping path="/member/*"/>
 			<exclude-mapping path="/member/signup_form"/>
+			<exclude-mapping path="/member/signup"/>
 			<exclude-mapping path="/member/loginform"/>
 			<exclude-mapping path="/member/login"/>
 			<beans:ref bean="loginInterceptor"/>
