@@ -20,11 +20,6 @@ public class MovieDaoImpl implements MovieDao{
 	}
 
 	@Override
-	public int getCount() {
-		return session.selectOne("movie.getCount");
-	}
-
-	@Override
 	public void insert(MovieDto dto) {
 		session.insert("movie.insert", dto);
 	}
@@ -57,6 +52,11 @@ public class MovieDaoImpl implements MovieDao{
 	@Override
 	public MovieDto getData(String title) {
 		return session.selectOne("movie.getData2", title);
+	}
+
+	@Override
+	public int getCount(MovieDto dto) {
+		return session.selectOne("movie.getCount", dto);
 	}
 
 }

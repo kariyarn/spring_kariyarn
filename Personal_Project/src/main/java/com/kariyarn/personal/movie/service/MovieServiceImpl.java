@@ -1,6 +1,7 @@
 package com.kariyarn.personal.movie.service;
 
 import java.io.File;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,21 +43,48 @@ public class MovieServiceImpl implements MovieService{
 	      //보여줄 페이지의 끝 ROWNUM
 	      int endRowNum = pageNum * PAGE_ROW_COUNT;
 	      
+	      //검색어 관련
+		  //request 영역의 keyword랑 condition(?)을 얻어온다.
+		  String keyword=request.getParameter("keyword");
+		  String condition=request.getParameter("condition");
+		  if(keyword==null) {
+		  	keyword="";
+		   	condition="";
+		  }
+		    
+		  //한글을 검색창에 띄울 수 없으므로 ENcoder를 이용해서 적절하게 인코딩
+		  String encodedK=URLEncoder.encode(keyword);
+	      
 	      //startRowNum 과 endRowNum  을 movieDto 객체에 담고
 	      MovieDto dto = new MovieDto();
 	      dto.setStartRowNum(startRowNum);
 	      dto.setEndRowNum(endRowNum);
 	      
+	      
+		    //만일 검색 키워드가 넘어온다면
+		    if(!keyword.equals("")) {
+		    	//검색 조건이 무엇인가에 따라 분기
+		    	if(condition.equals("title_caption")) {//w제목+내용 검색인 경우
+		    		dto.setTitle(keyword);
+		    		dto.setCaption(keyword);
+		    	}else if(condition.equals("title")) {
+		    		dto.setTitle(keyword);
+		    	}else if(condition.equals("writer")) {
+		    		dto.setWriter(keyword);
+		    	}
+		    }
+	      
 	      //movieDao 객체를 이용해서 회원 목록을 얻어온다.
 	      List<MovieDto> list = dao.getList(dto);
+	      
+	      //검색 키워드에 부합하는 전체 글의 갯수
+	      int totalRow = dao.getCount(dto);
 	      
 	      //하단 시작 페이지 번호 
 	      int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT) * PAGE_DISPLAY_COUNT;
 	      //하단 끝 페이지 번호
 	      int endPageNum = startPageNum + PAGE_DISPLAY_COUNT - 1;
 	      
-	      //전체 row 의 갯수
-	      int totalRow = dao.getCount();
 	      //전체 페이지의 갯수 구하기
 	      int totalPageCount = (int)Math.ceil(totalRow / (double)PAGE_ROW_COUNT);
 	      //끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다.
@@ -70,7 +98,10 @@ public class MovieServiceImpl implements MovieService{
 	      request.setAttribute("endPageNum", endPageNum);   //끝 페이지 번호
 	      request.setAttribute("pageNum", pageNum);   //현재 페이지 번호
 	      request.setAttribute("totalPageCount", totalPageCount);   //모든 페이지 count
-	
+		  request.setAttribute("keyword", keyword);
+		  request.setAttribute("encodedK", encodedK);
+		  request.setAttribute("totalRow", totalRow); 
+		  request.setAttribute("condition", condition);
 		
 	}
 

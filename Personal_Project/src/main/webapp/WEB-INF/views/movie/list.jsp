@@ -110,7 +110,24 @@
          </c:otherwise>
       </c:choose>
       </ul>
-   </nav>   
+   </nav>
+   <!-- 검색 폼 -->
+      <form action="list" method="get">
+         <label for="condition">검색조건</label>   
+         <select name="condition" id="condition">
+            <option value="title_caption" ${condition eq 'title_caption' ? 'selected' : '' }>제목 + 내용</option>
+            <option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
+            <option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
+         </select>
+         <input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
+         <button type="submit">검색</button>
+      </form>
+      <c:if test="${not empty condition }">
+         <p>
+            <strong>${totalRow }</strong> 개의 자료가 검색 되었습니다.
+            <a href="list">리셋</a>
+         </p>
+      </c:if>
 </div>
 </body>
 </html>
