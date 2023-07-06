@@ -20,7 +20,7 @@ public interface MovieDao {
 	//비추하기
 	public int thumsdownCount();
 	//영화 삭제
-	public void delete(String id);
+	public void delete(int num);
 	//영화 삭제
 	public void update(MovieDto dto);
 }

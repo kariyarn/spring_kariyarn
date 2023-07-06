@@ -40,8 +40,8 @@ public class MovieDaoImpl implements MovieDao{
 	}
 
 	@Override
-	public void delete(String id) {
-		
+	public void delete(int num) {
+		session.delete("movie.delete", num);
 	}
 
 	@Override

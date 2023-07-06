@@ -65,13 +65,13 @@
 		   ORDER BY num DESC)
 		WHERE title = #{title}
    </select>
-   
-
-   <!-- 더 만들어야할 것
-  	update movie
-  	delete movie
-  	update thumsup
-  	update thumsdown   
-    -->
-
+   <update id="update" parameterType="movieDto">
+   		UPDATE board_movie
+   		SET title = #{title}, caption=#{caption}, imagePath=#{imagePath}
+   		WHERE num = #{num }
+   </update>
+   <delete id="delete" parameterType="int">
+   		DELETE FROM board_movie
+   		WHERE num=#{num }
+   </delete>
 </mapper>

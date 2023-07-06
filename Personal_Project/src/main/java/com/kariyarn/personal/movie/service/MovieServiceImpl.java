@@ -178,8 +178,7 @@ public class MovieServiceImpl implements MovieService{
 
 	@Override
 	public void delete(int num) {
-		// TODO Auto-generated method stub
-		
+		dao.delete(num);
 	}
 
 	@Override

@@ -17,6 +17,15 @@ public class MovieController {
 	@Autowired
 	private MovieService service;
 	
+	//delete
+	@RequestMapping("/movie/delete")
+	public String delete(int num) {
+		service.delete(num);
+		return "redirect:/movie/list";
+	}
+	//update
+	//updateform 이동
+	
 	//detail 페이지
 	@RequestMapping(method =RequestMethod.GET , value = "/movie/detail")
 	public ModelAndView detail(ModelAndView mView, int num) {
