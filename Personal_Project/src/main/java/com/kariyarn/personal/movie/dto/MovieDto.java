@@ -7,6 +7,8 @@ public class MovieDto {
 	
 	//영화 번호
 	private int num;
+	//작성자
+	private String writer;
 	//영화 타이틀
 	private String title;
 	//영화에 대한 설명
@@ -22,11 +24,29 @@ public class MovieDto {
 	//게시글 페이징 처리를 위한 필드
 	private int startRowNum;
 	private int endRowNum;
-	private int prevRowNum;
-	private int nextRowNum;
+	private int prevNum;
+	private int nextNum;
 	private MultipartFile image; //이미지 처리를 위한 필드
 	
 	public MovieDto() {}
+
+	public MovieDto(int num, String writer, String title, String caption, String imagePath, String regdate, int thumsup,
+			int thumsdown, int startRowNum, int endRowNum, int prevNum, int nextNum, MultipartFile image) {
+		super();
+		this.num = num;
+		this.writer = writer;
+		this.title = title;
+		this.caption = caption;
+		this.imagePath = imagePath;
+		this.regdate = regdate;
+		this.thumsup = thumsup;
+		this.thumsdown = thumsdown;
+		this.startRowNum = startRowNum;
+		this.endRowNum = endRowNum;
+		this.prevNum = prevNum;
+		this.nextNum = nextNum;
+		this.image = image;
+	}
 
 	public int getNum() {
 		return num;
@@ -35,7 +55,14 @@ public class MovieDto {
 	public void setNum(int num) {
 		this.num = num;
 	}
+	
+	public String getWriter() {
+		return writer;
+	}
 
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -100,20 +127,20 @@ public class MovieDto {
 		this.endRowNum = endRowNum;
 	}
 
-	public int getPrevRowNum() {
-		return prevRowNum;
+	public int getprevNum() {
+		return prevNum;
 	}
 
-	public void setPrevRowNum(int prevRowNum) {
-		this.prevRowNum = prevRowNum;
+	public void setprevNum(int prevNum) {
+		this.prevNum = prevNum;
 	}
 
-	public int getNextRowNum() {
-		return nextRowNum;
+	public int getnextNum() {
+		return nextNum;
 	}
 
-	public void setNextRowNum(int nextRowNum) {
-		this.nextRowNum = nextRowNum;
+	public void setnextNum(int nextNum) {
+		this.nextNum = nextNum;
 	}
 
 	public MultipartFile getImage() {
@@ -124,22 +151,7 @@ public class MovieDto {
 		this.image = image;
 	}
 
-	public MovieDto(int num, String title, String caption, String imagePath, String regdate, int thumsup, int thumsdown,
-			int startRowNum, int endRowNum, int prevRowNum, int nextRowNum, MultipartFile image) {
-		super();
-		this.num = num;
-		this.title = title;
-		this.caption = caption;
-		this.imagePath = imagePath;
-		this.regdate = regdate;
-		this.thumsup = thumsup;
-		this.thumsdown = thumsdown;
-		this.startRowNum = startRowNum;
-		this.endRowNum = endRowNum;
-		this.prevRowNum = prevRowNum;
-		this.nextRowNum = nextRowNum;
-		this.image = image;
-	}
+	
 	
 	
 }

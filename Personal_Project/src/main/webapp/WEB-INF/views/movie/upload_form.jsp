@@ -36,12 +36,17 @@
          <form action="${pageContext.request.contextPath}/movie/upload" method="post" 
                         enctype="multipart/form-data">
             <div>
-               <label for="caption">설명</label>
-               <input type="text" name="caption" id="caption"/>
+               <label for="title">영화 제목</label>
+               <input type="text" name="title" id="title"/>
             </div>
             
            <input type="file" name="image" id="image"
                   accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+                  
+           <div>
+           		<label for="caption">영화 설명</label>
+           		<input type="text" name="caption" id="caption" />
+           </div>
          </form>
          <!-- drag and drop 을 할 div -->
          <a href="javascript:" id="dropZoneLink" title="업로드 할 이미지 선택">

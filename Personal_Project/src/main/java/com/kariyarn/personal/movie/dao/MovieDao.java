@@ -13,12 +13,14 @@ public interface MovieDao {
 	public void insert(MovieDto dto);
 	//pk를 이용해 게시글 하나의 data 가져오기
 	public MovieDto getData(int num);
+	//Sting를 이용해 게시글 하나의 data 가져오기
+	public MovieDto getData(String title);
 	//추천하기
 	public int thumsupCount();
 	//비추하기
 	public int thumsdownCount();
 	//영화 삭제
-	public void delete(int num);
+	public void delete(String id);
 	//영화 삭제
 	public void update(MovieDto dto);
 }

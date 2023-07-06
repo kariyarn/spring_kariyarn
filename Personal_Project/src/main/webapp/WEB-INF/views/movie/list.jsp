@@ -62,9 +62,8 @@
                         </div>
                   </a>
                   <div class="card-body">
+                        <p class="card-text"><strong>${tmp.title}</strong></p>
                         <p class="card-text">${tmp.caption}</p>
-                        <p class="card-text">by <strong>${tmp.writer}</strong></p>
-                        <p><small>${tmp.regdate}</small></p>
                   </div>
                </div>
             </div>

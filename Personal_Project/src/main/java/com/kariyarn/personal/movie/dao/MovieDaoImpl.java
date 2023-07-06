@@ -45,13 +45,18 @@ public class MovieDaoImpl implements MovieDao{
 	}
 
 	@Override
-	public void delete(int num) {
+	public void delete(String id) {
 		
 	}
 
 	@Override
 	public void update(MovieDto dto) {
 		
+	}
+
+	@Override
+	public MovieDto getData(String title) {
+		return session.selectOne("movie.getData2", title);
 	}
 
 }

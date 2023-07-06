@@ -26,8 +26,8 @@
 		
 		<ul>
 			<li><a href="">RANKING</a></li>
-			<li><a href="">영화 리뷰</a></li>
-			<li><a href="">커뮤니티</a></li>
+			<li><a href="${pageContext.request.contextPath }/movie/list">영화 리뷰</a></li>
+			<li><a href="${pageContext.request.contextPath }/commu/list">커뮤니티</a></li>
 		</ul>
 	</div>
 </body>

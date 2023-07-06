@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="commuComment">
+	   <select id="getList" parameterType="commuCommentDto" resultType="commuCommentDto">
+      SELECT *
+      FROM
+         (SELECT result1.*, ROWNUM AS rnum
+         FROM
+            (SELECT num, writer, content, target_id, ref_group,
+               comment_group, deleted, board_commu_comment.regdate, profile
+            FROM board_commu_comment
+            INNER JOIN board_member
+            ON board_commu_comment.writer=board_member.id
+            WHERE ref_group=#{ref_group}
+            ORDER BY comment_group ASC, num ASC) result1)
+      WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}   
+   </select>
+   <!-- 댓글은 실제로 삭제 하지 않고 deleted 칼럼에 저장된값을 no 에서 yes 로 수정하는 작업만한다. -->
+   <update id="delete" parameterType="int">
+      UPDATE board_commu_comment
+      SET deleted='yes'
+      WHERE num=#{num}
+   </update>
+   <insert id="insert" parameterType="commuCommentDto">
+      INSERT INTO board_commu_comment
+      (num, writer, content, target_id, ref_group, comment_group, regdate)
+      VALUES(#{num}, #{writer}, #{content}, #{target_id}, #{ref_group},
+         #{comment_group}, SYSDATE)
+   </insert>
+   <!-- 저장 예정인 댓글의 글번호를 미리 얻어내기  -->
+   <select id="getSequence" resultType="int">
+      SELECT board_commu_comment_seq.NEXTVAL
+      FROM DUAL
+   </select>
+   <update id="update" parameterType="commuCommentDto">
+      UPDATE board_commu_comment
+      SET content=#{content}
+      WHERE num=#{num}
+   </update>
+   <select id="getData" parameterType="int" resultType="commuCommentDto">
+      SELECT num,writer,content,ref_group,comment_group,deleted,regdate
+      FROM board_commu_comment
+      WHERE num=#{num}
+   </select>
+   <select id="getCount" parameterType="int" resultType="int">
+      SELECT NVL(MAX(ROWNUM), 0)
+      FROM board_commu_comment
+      WHERE ref_group=#{ref_group}
+   </select>   
+</mapper>

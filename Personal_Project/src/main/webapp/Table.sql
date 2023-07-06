@@ -13,6 +13,7 @@ CREATE SEQUENCE board_member_seq;
 -- 영화 리뷰
 CREATE TABLE board_movie (
   num NUMBER PRIMARY KEY,
+  writer VARCHAR2(100), -- 작성자도 포함
   title VARCHAR2(100) UNIQUE,
   caption VARCHAR2(200),
   imagePath VARCHAR2(100), -- 이미지 경로

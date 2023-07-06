@@ -6,9 +6,13 @@
 	<typeAliases>
 		<typeAlias type="com.kariyarn.personal.member.dto.MemberDto" alias="memberDto"/>
 		<typeAlias type="com.kariyarn.personal.movie.dto.MovieDto" alias="movieDto"/>
+		<typeAlias type="com.kariyarn.personal.commu.dto.CommuDto" alias="commuDto"/>
+		<typeAlias type="com.kariyarn.personal.commu.dto.CommuCommentDto" alias="commuCommentDto"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/MemberMapper.xml"/>
 		<mapper resource="mapper/MovieMapper.xml"/>
+		<mapper resource="mapper/CommuMapper.xml"/>
+		<mapper resource="mapper/CommuCommentMapper.xml"/>
 	</mappers>
 </configuration>

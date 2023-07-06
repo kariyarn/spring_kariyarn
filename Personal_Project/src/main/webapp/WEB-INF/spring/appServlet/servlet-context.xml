@@ -97,6 +97,19 @@
 			<exclude-mapping path="/member/login"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
+		<interceptor>
+			<mapping path="/movie/*"/>
+			<exclude-mapping path="/movie/list"/>
+			<exclude-mapping path="/movie/detail"/>			
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+	   <interceptor>
+      	<mapping path="/commu/*"/>
+      	<exclude-mapping path="/commu/list"/>
+      	<exclude-mapping path="/commu/detail"/>
+      	<exclude-mapping path="/commu/ajax_comment_list"/>
+      	<beans:ref bean="loginInterceptor"/>
+      </interceptor>
 	</interceptors>
 	
 	   <!-- 
