@@ -46,7 +46,7 @@ public class MovieDaoImpl implements MovieDao{
 
 	@Override
 	public void update(MovieDto dto) {
-		
+		session.update("movie.update", dto);
 	}
 
 	@Override

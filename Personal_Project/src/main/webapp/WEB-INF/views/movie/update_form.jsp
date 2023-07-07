@@ -37,7 +37,7 @@
                         enctype="multipart/form-data">
             <div>
                <label for="title">영화 제목</label>
-               <input type="text" name="title" id="title" value="${title }"/>
+               <input type="text" name="title" id="title" value="${dto.title }"/>
             </div>
             
            <input type="file" name="image" id="image"
@@ -45,19 +45,24 @@
                   
            <div>
            		<label for="caption">영화 설명</label>
-           		<input type="text" name="caption" id="caption" value="${caption }"/>
+           		<textarea name="caption" id="caption" cols="30" rows="10">${dto.caption }</textarea>
+
            </div>
          </form>
          <!-- drag and drop 을 할 div -->
-         <a href="javascript:" id="dropZoneLink" title="업로드 할 이미지 선택">
+          <a href="javascript:" id="dropZoneLink" title="업로드 할 이미지 선택">
             <div id="dropZone">
                <p>이미지를 drag drop 또는 여기를 클릭하세요</p>
-               <img src="" id="preview"/>
+               <img src="${pageContext.request.contextPath }${dto.imagePath }" id="preview"/>
             </div>
          </a>
-         <button id="submitBtn">업로드</button>
+         <button id="submitBtn">수정</button>
 </div>
  <script>
+ 	/* 이미지 보이게 */
+	 document.querySelector("#preview").style.display="block";
+	 document.querySelector("#dropZone p").style.display="none";
+
       document.querySelector("#submitBtn").addEventListener("click", ()=>{
          document.querySelector("form").submit();
       });

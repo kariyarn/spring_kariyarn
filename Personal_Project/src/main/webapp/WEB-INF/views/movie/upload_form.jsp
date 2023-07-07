@@ -41,7 +41,7 @@
             </div>
             
            <input type="file" name="image" id="image"
-                  accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+                  accept=".jpg, .jpeg, .png, .JPG, .JPEG, .WEBP"/>
                   
            <div>
            		<label for="caption">영화 설명</label>

@@ -1,11 +1,15 @@
 package com.kariyarn.personal.movie.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kariyarn.personal.movie.dto.MovieDto;
@@ -24,7 +28,20 @@ public class MovieController {
 		return "redirect:/movie/list";
 	}
 	//update
+	@RequestMapping("/movie/update")
+	public String update(MovieDto dto, HttpServletRequest request) {
+		service.update(dto, request);
+		return "redirect:/movie/list";
+		
+	}
+	
 	//updateform 이동
+	@RequestMapping("/movie/update_form")
+	public ModelAndView uploadform(ModelAndView mView, int num) {
+		service.getDetail(mView, num);
+		mView.setViewName("movie/update_form");
+		return mView;
+	}
 	
 	//detail 페이지
 	@RequestMapping(method =RequestMethod.GET , value = "/movie/detail")
