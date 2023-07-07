@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="movieReview">
+<select id="getList" parameterType="reviewDto" resultType="reviewDto">
+      SELECT *
+      FROM
+         (SELECT result1.*, ROWNUM AS rnum
+         FROM
+            (SELECT num, title, writer, review, ref_group, rate,
+                board_review.regdate, profile
+            FROM board_review
+            INNER JOIN board_member
+            ON board_review.writer=board_member.id
+            WHERE ref_group=#{ref_group}
+            ORDER BY board_review.regdate desc, num ASC) result1)
+      WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}   
+   </select>
+   <select id="getCount" parameterType="int" resultType="int">
+      SELECT NVL(MAX(ROWNUM), 0)
+      FROM board_review
+      WHERE ref_group=#{ref_group}
+   </select>
+   <delete id="delete" parameterType="int">
+   	  DELETE FROM board_review
+   	  WHERE num=#{num}
+   </delete>
+   <insert id="insert" parameterType="reviewDto">
+   	  INSERT INTO board_review
+   	  (num, title, writer, review, ref_group, rate, regdate)
+   	  VALUES(#{num}, #{title}, #{writer}, #{review}, #{ref_group}, #{rate}, SYSDATE)
+   </insert>
+   <select id="getSequence" resultType="int">
+      SELECT review_seq.NEXTVAL
+      FROM DUAL
+   </select>
+   <update id="update" parameterType="reviewDto">
+      UPDATE board_review
+      SET review=#{review}, rate=#{rate}
+      WHERE num=#{num}
+   </update>
+   <select id="getData" parameterType="int" resultType="reviewDto">
+   	  SELECT NVL(MAX(ROWNUM),0)
+   	  FROM board_commu_comment
+   	  WHERE ref_group=#{ref_group}
+   </select>
+</mapper>

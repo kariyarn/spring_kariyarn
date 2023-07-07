@@ -48,7 +48,7 @@ public class CommuController {
 		public String commentList(HttpServletRequest request) {
 			//테스트를 위해 시간 지연 시키기
 			try {
-				Thread.sleep(3000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

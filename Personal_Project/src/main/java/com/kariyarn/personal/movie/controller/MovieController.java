@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kariyarn.personal.movie.dto.MovieDto;
+import com.kariyarn.personal.movie.dto.MovieReviewDto;
 import com.kariyarn.personal.movie.service.MovieService;
 
 @Controller
@@ -20,6 +21,42 @@ public class MovieController {
 
 	@Autowired
 	private MovieService service;
+	
+	//리뷰 수정 요청 처리(json)
+	@RequestMapping("/movie/review_update")
+	@ResponseBody
+	public Map<String, Object> reviewUpdate(MovieReviewDto dto){
+		service.updateReview(dto);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("isSuccess", true);
+		return map;
+	}
+	//리뷰 삭제
+	@RequestMapping("/movie/review_delete")
+	@ResponseBody
+	public Map<String, Object> reviewDelete(HttpServletRequest request){
+		service.deleteReview(request);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("isSuccess", true);
+		return map;
+	}
+	//댓글 더보기
+	@RequestMapping("/commu/ajax_review_list")
+	public String reviewList(HttpServletRequest request) {
+		try {
+			Thread.sleep(1000);
+		}catch(InterruptedException e) {
+			e.printStackTrace();
+		}
+		service.moreReview(request);
+		return "movie/ajax_review_list";
+	}
+	//새로운 댓글 저장 요청 처리
+	@RequestMapping("movie/review_insert")
+	public String reviewInsert(HttpServletRequest request, int ref_group) {
+		service.saveReview(request);
+		return "redirect:/movie/detail?num="+ref_group;
+	}
 	
 	//delete
 	@RequestMapping("/movie/delete")
@@ -69,6 +106,13 @@ public class MovieController {
 	public String list(HttpServletRequest request) {
 		service.getList(request);
 		return "movie/list";
+	}
+	
+	//메인 페이지로 이동
+	@RequestMapping("/")
+	public String home(HttpServletRequest request) {
+		service.getList(request);
+		return "home";
 	}
 	
 	//업데이트 폼 이동, 업데이트, 삭제는 일단 나중에 하기로ㅇㅇ

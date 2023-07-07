@@ -7,6 +7,40 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	/* 별점 css */
+	
+	#myform fieldset{
+		display : inline-block;
+		direction : rtl;
+		border : 0;
+	}
+	
+	#myform fieldset legend{
+		text-align : left;
+	}
+	
+	#myform input[type=radio]{
+		display : none;
+	}
+	#myform label{
+		font-size : 2em;
+		color : transparent;
+		text-shadow : 0 0 0 #f0f0f0;
+	}
+	
+	/* 마우스 호버에 반응 */
+	#myform label:hover{
+		text-shadow: 0 0 0 yellow;
+	}
+	#myform label:hover ~ label{
+		text-shadow : 0 0 0 yellow;
+	}
+	
+	/* 마우스 클릭에 체크 */
+	#myform input[type=radio]:checked ~ label{
+		text-shadow: 0 0 0 yellow;
+	}
+	
    .content{
       border: 1px dotted gray;
    }
@@ -133,6 +167,98 @@
          </script>
       </c:if>
    </div>
+   <div>
+   <h4>리뷰를 입력해 주세요</h4>
+      <!-- 원글에 댓글을 작성할 폼 -->
+      <form class="comment-form insert-form" action="review_insert" method="post" id="myform">
+         <!-- 원글의 글번호가 댓글의 ref_group 번호가 된다. -->
+         <input type="hidden" name="ref_group" value="${dto.num }"/>
+         <input type="hidden" name="title" value="${dto.title }" />
+   		 <fieldset>
+         	<legend><small>평점</small></legend>
+         	<input type="radio" name="rate" value="5" id="rate1"><label for="rate1">⭐</label>
+        	<input type="radio" name="rate" value="4" id="rate2"><label for="rate2">⭐</label>
+        	<input type="radio" name="rate" value="3" id="rate3"><label for="rate3">⭐</label>
+        	<input type="radio" name="rate" value="2" id="rate4"><label for="rate4">⭐</label>
+        	<input type="radio" name="rate" value="1" id="rate5"><label for="rate5">⭐</label>
+         </fieldset>
+         <textarea name="review">${empty id ? '리뷰 작성을 위해 로그인이 필요 합니다.' : '' }</textarea>
+         <button type="submit">등록</button>
+      </form>
+      <!-- 댓글 목록 -->
+      <div class="comments">
+         <ul>
+            <c:forEach var="tmp" items="${reviewList }">
+               <c:choose>
+                  <c:when test="">
+                  </c:when>
+                  <c:otherwise>
+                           <dl>
+                              <dt>
+                                 <c:if test="${ empty tmp.profile }">
+                                    <svg class="profile-image" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                                    </svg>
+                                 </c:if>
+                                 <c:if test="${not empty tmp.profile }">
+                                    <img class="profile-image" src="${pageContext.request.contextPath}${tmp.profile }"/>
+                                 </c:if>
+                                 <span>${tmp.writer }[
+                                 	<c:if test="${tmp.rate eq 5 }">⭐⭐⭐⭐⭐</c:if>
+                                 	<c:if test="${tmp.rate eq 4 }">⭐⭐⭐⭐</c:if>
+                                 	<c:if test="${tmp.rate eq 3 }">⭐⭐⭐</c:if>
+                                	<c:if test="${tmp.rate eq 2 }">⭐⭐</c:if>
+                                 	<c:if test="${tmp.rate eq 1 }">⭐</c:if>
+                                 	]
+                                 </span>
+                                 <c:if test="${ (id ne null) and (tmp.writer eq id) }">
+                                    <a data-num="${tmp.num }" class="update-link" href="javascript:">수정</a>
+                                    <a data-num="${tmp.num }" class="delete-link" href="javascript:">삭제</a>
+                                 </c:if>
+                              </dt>
+                              <dd>
+                              <!-- pre는 개행 등등도 인식을 해줌 -->
+                                 <pre id="pre${tmp.num }">${tmp.review }</pre>                  
+                              </dd>
+                           </dl>
+                           <form id="reForm${tmp.num }" class="animate__animated comment-form re-insert-form" action="review_insert" method="post">
+                              <input type="hidden" name="ref_group" value="${dto.num }"/>
+                              <input type="hidden" name="target_id" value="${tmp.writer }"/>
+                              <textarea name="review"></textarea>
+                              <button type="submit">등록</button>
+                           </form>
+                        <c:if test="${tmp.writer eq id }">
+                           <form id="updateForm${tmp.num }" class="comment-form update-form" action="review_update" method="post">
+                              <input type="hidden" name="num" value="${tmp.num }" />
+                              <fieldset>
+						         	<legend><small>평점 수정하기</small></legend>
+						        	<select name="rate" id="rate">
+						        		<option value="1">1</option>
+						        		<option value="2">2</option>
+						        		<option value="3">3</option>
+						        		<option value="4">4</option>
+						        		<option value="5">5</option>
+						        	</select>
+						         </fieldset>
+                              <textarea name="review">${tmp.review }</textarea>
+                              <button type="submit">수정</button>
+                           </form>
+                        </c:if>
+                        </li>      
+                  </c:otherwise>
+               </c:choose>
+            </c:forEach>
+         </ul>
+      </div>      
+      <div class="loader">
+         <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+              <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+         </svg>
+      </div>
+   </div>
+   </div>
    <%-- 만일 검색 키워드가 있다면 --%>
       <c:if test="${not empty keyword }">
          <p>
@@ -140,6 +266,7 @@
             <strong>${keyword }</strong> 검색어로 검색된 내용 자세히 보기
          </p>
       </c:if>
+   <div>
    <nav>
       <ul class="pagination justify-content-center">
          <c:choose>
@@ -168,90 +295,9 @@
          </c:choose>         
       </ul>
    </nav>      
-</div>
-<h4>댓글을 입력해 주세요</h4>
-      <!-- 원글에 댓글을 작성할 폼 -->
-      <form class="comment-form insert-form" action="comment_insert" method="post">
-         <!-- 원글의 글번호가 댓글의 ref_group 번호가 된다. -->
-         <input type="hidden" name="ref_group" value="${dto.num }"/>
-         <!-- 원글의 작성자가 댓글의 대상자가 된다. -->
-         <input type="hidden" name="target_id" value="${dto.writer }"/>
-   
-         <textarea name="content">${empty id ? '댓글 작성을 위해 로그인이 필요 합니다.' : '' }</textarea>
-         <button type="submit">등록</button>
-      </form>
-      <!-- 댓글 목록 -->
-      <div class="comments">
-         <ul>
-            <c:forEach var="tmp" items="${commentList }">
-               <c:choose>
-                  <c:when test="${tmp.deleted eq 'yes' }">
-                     <li>삭제된 댓글 입니다.</li>
-                  </c:when>
-                  <c:otherwise>
-                     <c:if test="${tmp.num eq tmp.comment_group }">
-                        <li id="reli${tmp.num }">
-                     </c:if>
-                     <c:if test="${tmp.num ne tmp.comment_group }">
-                        <li id="reli${tmp.num }" style="padding-left:50px;">
-                           <svg class="reply-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
-                           </svg>
-                     </c:if>
-                           <dl>
-                              <dt>
-                                 <c:if test="${ empty tmp.profile }">
-                                    <svg class="profile-image" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                                      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                                    </svg>
-                                 </c:if>
-                                 <c:if test="${not empty tmp.profile }">
-                                    <img class="profile-image" src="${pageContext.request.contextPath}${tmp.profile }"/>
-                                 </c:if>
-                                 <span>${tmp.writer }</span>
-                                 <c:if test="${tmp.num ne tmp.comment_group }">
-                                    @<i>${tmp.target_id }</i>
-                                 </c:if>
-                                 <span>${tmp.regdate }</span>
-                                 <a data-num="${tmp.num }" href="javascript:" class="reply-link">답글</a>
-                                 <c:if test="${ (id ne null) and (tmp.writer eq id) }">
-                                    <a data-num="${tmp.num }" class="update-link" href="javascript:">수정</a>
-                                    <a data-num="${tmp.num }" class="delete-link" href="javascript:">삭제</a>
-                                 </c:if>
-                              </dt>
-                              <dd>
-                              <!-- pre는 개행 등등도 인식을 해줌 -->
-                                 <pre id="pre${tmp.num }">${tmp.content }</pre>                  
-                              </dd>
-                           </dl>
-                           <form id="reForm${tmp.num }" class="animate__animated comment-form re-insert-form" action="comment_insert" method="post">
-                              <input type="hidden" name="ref_group" value="${dto.num }"/>
-                              <input type="hidden" name="target_id" value="${tmp.writer }"/>
-                              <input type="hidden" name="comment_group" value="${tmp.comment_group }"/>
-                              <textarea name="content"></textarea>
-                              <button type="submit">등록</button>
-                           </form>
-                        <c:if test="${tmp.writer eq id }">
-                           <form id="updateForm${tmp.num }" class="comment-form update-form" action="comment_update" method="post">
-                              <input type="hidden" name="num" value="${tmp.num }" />
-                              <textarea name="content">${tmp.content }</textarea>
-                              <button type="submit">수정</button>
-                           </form>
-                        </c:if>
-                        </li>      
-                  </c:otherwise>
-               </c:choose>
-            </c:forEach>
-         </ul>
-      </div>      
-      <div class="loader">
-         <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
-              <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
-         </svg>
-      </div>
    </div>
+</div>
+
       <script src="${pageContext.request.contextPath}/resources/js/gura_util.js"></script>
    <script>
       
@@ -315,7 +361,7 @@
                해당 페이지의 내용을 ajax 요청을 통해서 받아온다.
                "pageNum=xxx&num=xxx" 형식으로 GET 방식 파라미터를 전달한다. 
             */
-            ajaxPromise("ajax_comment_list","get",
+            ajaxPromise("ajax_review_list","get",
                   "pageNum="+currentPage+"&num=${dto.num}")
             .then(function(response){
                //json 이 아닌 html 문자열을 응답받았기 때문에  return response.text() 해준다.
@@ -367,15 +413,14 @@
                const isDelete=confirm("댓글을 삭제 하시겠습니까?");
                if(isDelete){
                   // gura_util.js 에 있는 함수들 이용해서 ajax 요청
-                  ajaxPromise("comment_delete", "post", "num="+num)
+                  ajaxPromise("review_delete", "post", "num="+num)
                   .then(function(response){
                      return response.json();
                   })
                   .then(function(data){
                      //만일 삭제 성공이면 
                      if(data.isSuccess){
-                        //댓글이 있는 곳에 삭제된 댓글입니다를 출력해 준다. 
-                        document.querySelector("#reli"+num).innerText="삭제된 댓글입니다.";
+                    	 alert("삭제 성공");
                      }
                   });
                }
@@ -393,7 +438,7 @@
                   const isMove=confirm("로그인이 필요 합니다. 로그인 페이지로 이동 하시겠습니까?");
                   if(isMove){
                      location.href=
-                        "${pageContext.request.contextPath}/users/loginform?url=${pageContext.request.contextPath}/movie/detail?num=${dto.num}";
+                        "${pageContext.request.contextPath}/memeber/loginform?url=${pageContext.request.contextPath}/movie/detail?num=${dto.num}";
                   }
                   return;
                }
@@ -452,9 +497,9 @@
 			                        특정 요소의 참조값을 찾는 기능
                      */
                      const num=form.querySelector("input[name=num]").value;
-                     const content=form.querySelector("textarea[name=caption]").value;
+                     const review=form.querySelector("textarea[name=review]").value;
                      //수정폼에 입력한 value 값을 pre 요소에도 출력하기 
-                     document.querySelector("#pre"+num).innerText=content;
+                     document.querySelector("#pre"+num).innerText=review;
                      form.style.display="none";
                   }
                });

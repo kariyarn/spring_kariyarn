@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController {
 	//프로젝트의 최상위 경로 요청이 오면
-	@RequestMapping("/")
-	public String home(HttpServletRequest request) {
-	
-		return "home";
-	}
+	/*
+	 * @RequestMapping("/") public String home(HttpServletRequest request) {
+	 * 
+	 * return "home"; }
+	 */
 }

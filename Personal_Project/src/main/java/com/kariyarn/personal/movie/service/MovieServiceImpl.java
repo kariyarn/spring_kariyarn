@@ -6,20 +6,28 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.taglibs.standard.lang.jstl.NotEqualsOperator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kariyarn.personal.commu.dto.CommuCommentDto;
 import com.kariyarn.personal.exception.DonEqualException;
+import com.kariyarn.personal.exception.NotDeleteException;
 import com.kariyarn.personal.movie.dao.MovieDao;
+import com.kariyarn.personal.movie.dao.MovieReviewDao;
 import com.kariyarn.personal.movie.dto.MovieDto;
+import com.kariyarn.personal.movie.dto.MovieReviewDto;
 
 @Service
 public class MovieServiceImpl implements MovieService{
 	
 	@Autowired
 	private MovieDao dao;
+	
+	@Autowired
+	private MovieReviewDao reviewdao;
 
 	@Override
 	public void getList(HttpServletRequest request) {
@@ -168,7 +176,27 @@ public class MovieServiceImpl implements MovieService{
 		//dao로 해당 게시글 num에 해당하는 데이터(dto)를 가져온다.
 		MovieDto dto = dao.getData(num);
 		//ModelAndView에 가져온 MovieDto를 담는다.
+		
+		/* 댓글에 관련한 처리 */
+		final int PAGE_ROW_COUNT=10;
+		int pageNum = 1;
+		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
+		int endRowNum = pageNum*PAGE_ROW_COUNT;
+		
+		MovieReviewDto reviewDto = new MovieReviewDto();
+		reviewDto.setRef_group(num);
+		reviewDto.setStartRowNum(startRowNum);
+		reviewDto.setEndRowNum(endRowNum);
+		
+		List<MovieReviewDto> reviewList= reviewdao.getList(reviewDto);
+		
+		int totalRow = reviewdao.getCount(num);
+		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		
 		mView.addObject("dto", dto);
+		mView.addObject("totalRow", totalRow);
+		mView.addObject("reviewList", reviewList);
+		mView.addObject("totalPageCount", totalPageCount);
 		
 	}
 
@@ -242,7 +270,100 @@ public class MovieServiceImpl implements MovieService{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
 
+	@Override
+	public void saveReview(HttpServletRequest request) {
+		//ref_group 파라미터 잘 가져왔나? dto.num을 통해 가져옴
+		int ref_group=Integer.parseInt(request.getParameter("ref_group"));
+		//review는 get Parameter로 가져왔다.
+		String review = request.getParameter("review");
+		//session 영역의 id를 이용해 가져옴
+		String writer=(String)request.getSession().getAttribute("id");
+		//title을 request
+		String title=request.getParameter("title");
+		//rate(input radio -> value)를 통해 가져옴
+		String strRate=request.getParameter("rate");		
+		int rate = 0;
+		if(strRate==null) {
+			rate = 0;	
+		}else {
+			rate=Integer.parseInt(strRate);
+		}
+		//seq-> 잘 가져옴
+		int seq = reviewdao.getSequence();
+		
+		MovieReviewDto dto = new MovieReviewDto();
+		//num
+		dto.setNum(seq);
+		//title-> 임시로 내가 지정
+		dto.setTitle(title);
+		//writer
+		dto.setWriter(writer);
+		//review
+		dto.setReview(review);
+		//rate
+		dto.setRate(rate);
+		//ref_group
+		dto.setRef_group(ref_group);
+		
+		reviewdao.insert(dto);
+		
+	}
+
+	@Override
+	public void deleteReview(HttpServletRequest request) {
+		String strNum = request.getParameter("num");
+		int num = Integer.parseInt(strNum);
+		MovieReviewDto dto = reviewdao.getData(num);
+		String id = (String)request.getSession().getAttribute("id");
+		if(!dto.getWriter().equals(id)) {
+			throw new NotDeleteException("타인의 리뷰는 삭제할 수 없습니다.");
+		}
+		reviewdao.delete(num);
+	}
+
+	@Override
+	public void updateReview(MovieReviewDto dto) {
+		reviewdao.update(dto);
+	}
+
+	@Override
+	public void moreReview(HttpServletRequest request) {
+		//로그인된 아이디
+		String id =(String)request.getSession().getAttribute("id");
+		//ajax 요청 파라미터로 넘어오는 댓글의 페이지 번호를 읽어낸다.
+		int pageNum=Integer.parseInt(request.getParameter("pageNum"));
+		//ajax요청 파라미터로 넘어오는 원글의 글 번호를 읽어낸다.
+		int num = Integer.parseInt(request.getParameter("num"));
+		
+	     /*
+        	[ 댓글 페이징 처리에 관련된 로직 ]
+	     */
+	     //한 페이지에 몇개씩 표시할 것인지
+	     final int PAGE_ROW_COUNT=10;
+	
+	     //보여줄 페이지의 시작 ROWNUM
+	     int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
+	     //보여줄 페이지의 끝 ROWNUM
+	     int endRowNum=pageNum*PAGE_ROW_COUNT;
+	
+	     //원글의 글번호를 이용해서 해당글에 달린 댓글 목록을 얻어온다.
+	     MovieReviewDto reviewDto=new MovieReviewDto();
+	     reviewDto.setRef_group(num);
+	     //1페이지에 해당하는 startRowNum 과 endRowNum 을 dto 에 담아서  
+	     reviewDto.setStartRowNum(startRowNum);
+	     reviewDto.setEndRowNum(endRowNum);
+	
+	     //pageNum에 해당하는 댓글 목록만 select 되도록 한다. 
+	     List<MovieReviewDto> commentList=reviewdao.getList(reviewDto);
+	     //원글의 글번호를 이용해서 댓글 전체의 갯수를 얻어낸다.
+	     int totalRow=reviewdao.getCount(num);
+	     //댓글 전체 페이지의 갯수
+	     int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+	
+	     //view page 에 필요한 값 request 에 담아주기
+	     request.setAttribute("commentList", commentList);
+	     request.setAttribute("num", num); //원글의 글번호
+	     request.setAttribute("pageNum", pageNum); //댓글의 페이지 번호
+	}
 }

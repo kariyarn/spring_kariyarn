@@ -24,6 +24,20 @@ CREATE TABLE board_movie (
 -- 영화 프라이머리 키
 CREATE SEQUENCE board_movie_seq;
 
+CREATE TABLE board_review(
+    num NUMBER PRIMARY KEY,
+		title VARCHAR2(200),
+    writer VARCHAR2(100),
+    review VARCHAR2(600),
+    ref_group NUMBER,
+    rate NUMBER,
+    regdate DATE,
+    CONSTRAINT rate_range CHECK (rate >= 0 AND rate <= 5)
+);
+
+-- 리뷰의 글번호를 얻어낼 시퀀스
+CREATE SEQUENCE review_seq;
+
 -- 게시글을 저장할 테이블 
 CREATE TABLE board_commu(
     num NUMBER PRIMARY KEY, --글번호

@@ -4,7 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kariyarn.personal.movie.dao.MovieReviewDao;
 import com.kariyarn.personal.movie.dto.MovieDto;
+import com.kariyarn.personal.movie.dto.MovieReviewDto;
 
 
 public interface MovieService {
@@ -22,5 +24,15 @@ public interface MovieService {
 	public void thumsupCount();
 	//영화 비추 -> 딱히 전달한 값은 없고 그냥 실행되면 카운트 1 -> 마찬가지로 나중에 수정할지
 	public void thumsdownCount();
+	
+	//리뷰에 관련한 기능
+	//리뷰 저장
+	public void saveReview(HttpServletRequest request);
+	//리뷰 삭제
+	public void deleteReview(HttpServletRequest request);
+	//리뷰 수정
+	public void updateReview(MovieReviewDto dto);
+	//ajax 리스트 출력
+	public void moreReview(HttpServletRequest request);
 	
 }
