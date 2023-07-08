@@ -49,4 +49,9 @@ public class MovieReviewDaoImpl implements MovieReviewDao{
 	public int getCount(int ref_group) {
 		return session.selectOne("movieReview.getCount", ref_group);
 	}
+
+	@Override
+	public double getAvg(String title) {
+		return session.selectOne("movieReview.getAvg", title);
+	}
 }

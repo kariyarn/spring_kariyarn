@@ -12,6 +12,9 @@ import com.kariyarn.personal.movie.dto.MovieReviewDto;
 public interface MovieService {
 	//list가져오기
 	public void getList(HttpServletRequest request);
+	//ranking list 가져오기
+	public void getRanking(HttpServletRequest request);
+	
 	//사진 upload*DB 저장하기
 	public void saveImage(MovieDto dto, HttpServletRequest request);
 	//detail 페이지에 필요한 data를 ModelAndView에 저장
@@ -34,5 +37,7 @@ public interface MovieService {
 	public void updateReview(MovieReviewDto dto);
 	//ajax 리스트 출력
 	public void moreReview(HttpServletRequest request);
+	//평점 평균
+	public void avgRate(String title);
 	
 }

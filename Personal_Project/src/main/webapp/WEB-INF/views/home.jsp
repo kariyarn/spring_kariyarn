@@ -15,6 +15,11 @@
     height: auto;
   }
 </style>
+<style type="text/css">
+    .fotorama__html{position:relative !important;}
+    .fotorama__html div{height:100%;}
+    .fotorama__html a{z-index:1; display:block; height:100%;}
+</style>
 <body>
 	<div class="container">
 		<c:choose>
@@ -31,7 +36,7 @@
 		</c:choose>
 		
 		<ul>
-			<li><a href="">RANKING</a></li>
+			<li><a href="${pageContext.request.contextPath }/ranking/list">RANKING</a></li>
 			<li><a href="${pageContext.request.contextPath }/movie/list">영화 리뷰</a></li>
 			<li><a href="${pageContext.request.contextPath }/commu/list">커뮤니티</a></li>
 		</ul>
@@ -44,16 +49,33 @@
      			data-minwidth="400"
      			data-maxwidth="600"
      			data-minheight="300"
-     			data-maxheight="100%">
+     			data-maxheight="100%"
+     			data-click='false'
+     			data-swipe='false'
+     			data-shuffle="true"
+     			data-nav="thumbs"
+     			data-autoplay="1500">
 					<c:forEach var="tmp" items="${list }">
-				      	<a href="${pageContext.request.contextPath}/movie/detail?num=${tmp.num}">
-                      		<img class="img" src="${pageContext.request.contextPath }${tmp.imagePath}" />
-                  		</a>
+                      		<div data-img="${pageContext.request.contextPath }${tmp.imagePath}" />
+                      		<a href="${pageContext.request.contextPath}/movie/detail?num=${tmp.num}"></a>
+                      		</div>
 					</c:forEach>	
 			</div>
 	<!-- jquery로딩 -->
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
 	<!-- 플러그인 js 로딩 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+	<script>
+ 
+	<script type="text/javascript">
+	    $(document).ready(function(e) {
+	            $(".fotorama").on("click",function(){
+	                var href = $(this).find("a").attr('href');
+	                location.href=href;
+	            });
+	    });
+    </script>
+
+	</script>
 </body>
 </html>

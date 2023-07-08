@@ -7,6 +7,8 @@ import com.kariyarn.personal.movie.dto.MovieDto;
 public interface MovieDao {
 	//모든 영화의 리스트
 	public List<MovieDto> getList(MovieDto dto);
+	//랭킹 리스트
+	public List<MovieDto> getRanking(MovieDto dto);	
 	//모든 Row의 갯수
 	public int getCount(MovieDto dto);
 	//갤러리의 사진 저장하기

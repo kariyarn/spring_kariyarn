@@ -19,4 +19,6 @@ public interface MovieReviewDao {
 	public MovieReviewDto getData(int num);
 	//댓글의 갯수를 리턴하는 메소드
 	public int getCount(int ref_group);
+	//리뷰의 평점을 리턴하는 메소드
+	public double getAvg(String title);
 }

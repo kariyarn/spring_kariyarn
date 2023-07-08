@@ -18,6 +18,12 @@ public class MovieDaoImpl implements MovieDao{
 	public List<MovieDto> getList(MovieDto dto) {
 		return session.selectList("movie.getList", dto);
 	}
+	//랭킹 리스트
+	@Override
+	public List<MovieDto> getRanking(MovieDto dto) {
+		return session.selectList("movie.getRanking", dto);
+	}
+
 
 	@Override
 	public void insert(MovieDto dto) {
@@ -58,5 +64,4 @@ public class MovieDaoImpl implements MovieDao{
 	public int getCount(MovieDto dto) {
 		return session.selectOne("movie.getCount", dto);
 	}
-
 }

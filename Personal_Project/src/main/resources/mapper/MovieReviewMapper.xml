@@ -39,9 +39,11 @@
       SET review=#{review}, rate=#{rate}
       WHERE num=#{num}
    </update>
-   <select id="getData" parameterType="int" resultType="reviewDto">
-   	  SELECT NVL(MAX(ROWNUM),0)
-   	  FROM board_commu_comment
-   	  WHERE ref_group=#{ref_group}
-   </select>
+	<select id="getAvg" parameterType="string" resultType="double">
+	    <![CDATA[
+	        SELECT ROUND(AVG(rate), 2) AS average_rate
+	        FROM board_review
+	        WHERE title=#{title}
+	    ]]>
+	</select>
 </mapper>

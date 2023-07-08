@@ -28,6 +28,8 @@ public class MovieDto {
 	private int nextNum;
 	private MultipartFile image; //이미지 처리를 위한 필드
 	
+	private double rate;
+	
 	public MovieDto() {}
 
 	public MovieDto(int num, String writer, String title, String caption, String imagePath, String regdate, int thumsup,
@@ -46,6 +48,14 @@ public class MovieDto {
 		this.prevNum = prevNum;
 		this.nextNum = nextNum;
 		this.image = image;
+	}
+
+	public double getRate() {
+		return rate;
+	}
+
+	public void setRate(double rate) {
+		this.rate = rate;
 	}
 
 	public int getNum() {

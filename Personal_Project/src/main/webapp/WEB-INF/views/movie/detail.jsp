@@ -150,6 +150,14 @@
          <p class="card-text">${dto.caption}</p>
          <p class="card-text">by <strong>${dto.writer}</strong></p>
          <p><small>${dto.regdate}</small></p>
+         <c:choose>
+		  <c:when test="${not empty avgRate}">
+		    <p>평점 <strong>${avgRate}</strong></p>
+		  </c:when>
+		  <c:otherwise>
+		    <p>아직 평점이 등록되지 않았습니다.</p>
+		  </c:otherwise>
+		</c:choose>
       </div>
    </div>
    <div>

@@ -32,6 +32,27 @@
 	  ]]>
    </select>
    
+   <select id="getRanking" parameterType="movieDto" resultType="movieDto">
+        SELECT result.*, r.rate
+        FROM (
+            SELECT result1.*, ROWNUM AS rnum
+            FROM (
+                SELECT num, writer, title, caption, imagePath, regdate, thumsup, thumsdown
+                FROM board_movie
+                ORDER BY num DESC
+            ) result1
+        ) result
+        INNER JOIN (
+            SELECT title, ROUND(AVG(rate), 2) AS rate
+            FROM board_review
+            GROUP BY title
+        ) r ON result.title = r.title
+        <![CDATA[
+        WHERE result.rnum >= #{startRowNum} AND result.rnum <= #{endRowNum}
+        ]]>
+        ORDER BY r.rate DESC
+   </select>
+   
    <select id="getCount" parameterType="movieDto" resultType="int">
       SELECT NVL(MAX(ROWNUM), 0)
       FROM board_movie

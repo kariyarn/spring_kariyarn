@@ -21,7 +21,7 @@ public class MovieController {
 
 	@Autowired
 	private MovieService service;
-	
+		
 	//리뷰 수정 요청 처리(json)
 	@RequestMapping("/movie/review_update")
 	@ResponseBody
@@ -83,7 +83,7 @@ public class MovieController {
 	//detail 페이지
 	@RequestMapping(method =RequestMethod.GET , value = "/movie/detail")
 	public ModelAndView detail(ModelAndView mView, int num) {
-		service.getDetail(mView, num);
+		service.getDetail(mView, num);		
 		mView.setViewName("movie/detail");
 		return mView;
 	}
@@ -106,6 +106,13 @@ public class MovieController {
 	public String list(HttpServletRequest request) {
 		service.getList(request);
 		return "movie/list";
+	}
+	
+	//랭킹 리스트 이동
+	@RequestMapping("/ranking/list")
+	public String Rankinglist(HttpServletRequest request) {
+		service.getRanking(request);
+		return "ranking/list";
 	}
 	
 	//메인 페이지로 이동

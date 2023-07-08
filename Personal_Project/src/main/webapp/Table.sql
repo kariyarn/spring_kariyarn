@@ -26,7 +26,7 @@ CREATE SEQUENCE board_movie_seq;
 
 CREATE TABLE board_review(
     num NUMBER PRIMARY KEY,
-		title VARCHAR2(200),
+    title VARCHAR2(200),
     writer VARCHAR2(100),
     review VARCHAR2(600),
     ref_group NUMBER,
