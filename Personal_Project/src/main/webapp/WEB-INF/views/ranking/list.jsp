@@ -46,6 +46,29 @@
          */
       object-fit: cover;   
       }
+      
+		.container .row {
+		   display: flex;
+		   flex-wrap: wrap;
+		}
+		
+		.container .col-sm-6:first-child,
+		.container .col-md-4:first-child {
+		   flex-basis: 66.66%;
+		   max-width: 66.66%;
+		}
+		
+		.container .col-sm-6:nth-child(2),
+		.container .col-md-4:nth-child(2) {
+		   flex-basis: 33.33%;
+		   max-width: 33.33%;
+		}
+		
+		.container .col-sm-6:not(:first-child):not(:nth-child(2)),
+		.container .col-md-4:not(:first-child):not(:nth-child(2)) {
+		   flex-basis: auto;
+		   max-width: none;
+		}
 </style>
 </head>
 <body>

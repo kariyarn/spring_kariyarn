@@ -7,127 +7,157 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	/* 별점 css */
-	
-	#myform fieldset{
-		display : inline-block;
-		direction : rtl;
-		border : 0;
-	}
-	
-	#myform fieldset legend{
-		text-align : left;
-	}
-	
-	#myform input[type=radio]{
-		display : none;
-	}
-	#myform label{
-		font-size : 2em;
-		color : transparent;
-		text-shadow : 0 0 0 #f0f0f0;
-	}
-	
-	/* 마우스 호버에 반응 */
-	#myform label:hover{
-		text-shadow: 0 0 0 yellow;
-	}
-	#myform label:hover ~ label{
-		text-shadow : 0 0 0 yellow;
-	}
-	
-	/* 마우스 클릭에 체크 */
-	#myform input[type=radio]:checked ~ label{
-		text-shadow: 0 0 0 yellow;
-	}
-	
-   .content{
+   /* 별점 css */
+   #myform fieldset {
+      display: inline-block;
+      direction: rtl;
+      border: 0;
+   }
+
+   #myform fieldset legend {
+      text-align: left;
+   }
+
+   #myform input[type=radio] {
+      display: none;
+   }
+
+   #myform label {
+      font-size: 2em;
+      color: transparent;
+      text-shadow: 0 0 0 #f0f0f0;
+   }
+
+   /* 마우스 호버에 반응 */
+   #myform label:hover {
+      text-shadow: 0 0 0 yellow;
+   }
+
+   #myform label:hover ~ label {
+      text-shadow: 0 0 0 yellow;
+   }
+
+   /* 마우스 클릭에 체크 */
+   #myform input[type=radio]:checked ~ label {
+      text-shadow: 0 0 0 yellow;
+   }
+
+   .content {
       border: 1px dotted gray;
    }
-   
+
    /* 댓글 프로필 이미지를 작은 원형으로 만든다. */
-   .profile-image{
+   .profile-image {
       width: 50px;
       height: 50px;
       border: 1px solid #cecece;
       border-radius: 50%;
    }
+
    /* ul 요소의 기본 스타일 제거 */
-   .comments ul{
+   .comments ul {
       padding: 0;
       margin: 0;
       list-style-type: none;
    }
-   .comments dt{
+
+   .comments dt {
       margin-top: 5px;
    }
-   .comments dd{
+
+   .comments dd {
       margin-left: 50px;
    }
-   .comment-form textarea, .comment-form button{
+
+   .comment-form textarea,
+   .comment-form button {
       float: left;
    }
-   .comments li{
+
+   .comments li {
       clear: left;
    }
-   .comments ul li{
+
+   .comments ul li {
       border-top: 1px solid #888;
    }
-   .comment-form textarea{
+
+   .comment-form textarea {
       width: 84%;
       height: 100px;
    }
-   .comment-form button{
+
+   .comment-form button {
       width: 14%;
       height: 100px;
    }
+
    /* 댓글에 댓글을 다는 폼과 수정폼은 일단 숨긴다. */
-   .comments .comment-form{
+   .comments .comment-form {
       display: none;
    }
+
    /* .reply_icon 을 li 요소를 기준으로 배치 하기 */
-   .comments li{
+   .comments li {
       position: relative;
    }
-   .comments .reply-icon{
+
+   .comments .reply-icon {
       position: absolute;
       top: 1em;
       left: 1em;
       color: red;
    }
+
    pre {
-     display: block;
-     padding: 9.5px;
-     margin: 0 0 10px;
-     font-size: 13px;
-     line-height: 1.42857143;
-     color: #333333;
-     word-break: break-all;
-     word-wrap: break-word;
-     background-color: #f5f5f5;
-     border: 1px solid #ccc;
-     border-radius: 4px;
-   }   
-   
-   .loader{
+      display: block;
+      padding: 9.5px;
+      margin: 0 0 10px;
+      font-size: 13px;
+      line-height: 1.42857143;
+      color: #333333;
+      word-break: break-all;
+      word-wrap: break-word;
+      background-color: #f5f5f5;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+   }
+
+   .loader {
       /* 로딩 이미지를 가운데 정렬하기 위해 */
       text-align: center;
       /* 일단 숨겨 놓기 */
       display: none;
-   }   
-   
-   .loader svg{
+   }
+
+   .loader svg {
       animation: rotateAni 1s ease-out infinite;
    }
-   
-   @keyframes rotateAni{
-      0%{
+
+   @keyframes rotateAni {
+      0% {
          transform: rotate(0deg);
       }
-      100%{
+      100% {
          transform: rotate(360deg);
       }
    }
+
+   /* Grid Layout */
+		.container{
+		  display: grid;
+  		  grid-template-columns: 1fr 1fr;
+		  grid-gap: 20px;
+		}
+		.card {
+		  grid-column: 1 / span 1;
+		}
+		.comments {
+		  grid-column: 2 / span 1;
+		}
+		.comment-form {
+		  grid-column: 2 / span 1;
+		}
 </style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
@@ -159,8 +189,7 @@
 		  </c:otherwise>
 		</c:choose>
       </div>
-   </div>
-   <div>
+     <div>
       <%-- 로그인된 아이디와 글의 작성자가 같으면 수정, 삭제 링크를 제공 --%>
       <c:if test="${sessionScope.id eq dto.writer }">
          <a href="update_form?num=${dto.num }">수정</a>
@@ -174,6 +203,7 @@
             }
          </script>
       </c:if>
+   </div>
    </div>
    <div>
    <h4>리뷰를 입력해 주세요</h4>
@@ -257,8 +287,8 @@
                   </c:otherwise>
                </c:choose>
             </c:forEach>
-         </ul>
-      </div>      
+         </ul>     
+      </div>
       <div class="loader">
          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>

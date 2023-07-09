@@ -118,7 +118,7 @@ public class MovieController {
 	//메인 페이지로 이동
 	@RequestMapping("/")
 	public String home(HttpServletRequest request) {
-		service.getList(request);
+		service.getRanking(request);
 		return "home";
 	}
 	

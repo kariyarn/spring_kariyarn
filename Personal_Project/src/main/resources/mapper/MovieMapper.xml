@@ -47,9 +47,6 @@
             FROM board_review
             GROUP BY title
         ) r ON result.title = r.title
-        <![CDATA[
-        WHERE result.rnum >= #{startRowNum} AND result.rnum <= #{endRowNum}
-        ]]>
         ORDER BY r.rate DESC
    </select>
    
