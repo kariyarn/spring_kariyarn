@@ -24,4 +24,9 @@ public class HomeController {
 	 * 
 	 * return "home"; }
 	 */
+	
+	@RequestMapping("/include/navbar")
+	public String navbar(HttpServletRequest request) {
+		return "include/navbar";
+	}
 }

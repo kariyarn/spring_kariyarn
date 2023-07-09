@@ -21,4 +21,6 @@ public interface MovieReviewDao {
 	public int getCount(int ref_group);
 	//리뷰의 평점을 리턴하는 메소드
 	public double getAvg(String title);
+	//리뷰가 이미 존재하는지 확인하는 메소드
+	public MovieReviewDto getEqual(MovieReviewDto dto);
 }

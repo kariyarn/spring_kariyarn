@@ -54,4 +54,9 @@ public class MovieReviewDaoImpl implements MovieReviewDao{
 	public double getAvg(String title) {
 		return session.selectOne("movieReview.getAvg", title);
 	}
+
+	@Override
+	public MovieReviewDto getEqual(MovieReviewDto dto) {
+		return session.selectOne("movieReview.getEqual", dto);
+	}
 }

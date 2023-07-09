@@ -46,4 +46,10 @@
 	        WHERE title=#{title}
 	    ]]>
 	</select>
+	<select id="getEqual" parameterType="reviewDto" resultType="reviewDto">
+		SELECT *
+		FROM board_review
+		WHERE ref_group = #{ref_group}
+		AND writer = #{writer}
+	</select>
 </mapper>

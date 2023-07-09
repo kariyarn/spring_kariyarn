@@ -21,6 +21,10 @@
     .fotorama__html a{z-index:1; display:block; height:100%;}
 </style>
 <body>
+	<%-- webapp/include/navbar.jsp 페이지 포함시키기 --%>
+	<jsp:include page="${pageContext.request.contextPath}/include/navbar">
+		<jsp:param value="movie" name="current"/>
+	</jsp:include>
 	<div class="container">
 		<c:choose>
 			<c:when test="${empty sessionScope.id }">
