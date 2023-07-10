@@ -43,10 +43,14 @@
 			#{content}, #{viewCount}, SYSDATE)
 	</insert>
 	
-   <select id="getData" parameterType="int" resultType="reviewDto">
-      SELECT num, title, writer, caption,ref_group,comment_group,deleted,regdate
-      FROM board_commu_comment
-      WHERE num=#{num}
+   <select id="getData" parameterType="int" resultType="commuDto">
+		SELECT result1.*
+		FROM
+			(SELECT num,writer,title,content,viewCount,TO_CHAR(regdate, 'YY.MM.DD HH24:MI') AS regdate,
+			   LAG(num, 1, 0) OVER (ORDER BY num DESC) nextNum,
+	   		   LEAD(num, 1, 0) OVER (ORDER BY num DESC) prevNum
+			 FROM board_commu) result1
+		WHERE num=#{num}
    </select>
 	
 	<select id="getData2" parameterType="commuDto" resultType="commuDto">
