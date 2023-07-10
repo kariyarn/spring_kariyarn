@@ -162,6 +162,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/include/navbar.jsp"></jsp:include>
 <div class="container">
    <nav>
       <ul class="breadcrumb">
@@ -169,7 +170,7 @@
             <a href="${pageContext.request.contextPath }/">Home</a>
          </li>
          <li class="breadcrumb-item">
-            <a href="${pageContext.request.contextPath }/movie/list">갤러리 목록</a>
+            <a href="${pageContext.request.contextPath }/movie/list">영화 목록</a>
          </li>
          <li class="breadcrumb-item active">상세보기</li>
       </ul>
@@ -182,7 +183,7 @@
          <p><small>${dto.regdate}</small></p>
          <c:choose>
 		  <c:when test="${not empty avgRate}">
-		    <p>평점 <strong>${avgRate}</strong></p>
+		    <p>평점 <strong>${avgRate}⭐</strong></p>
 		  </c:when>
 		  <c:otherwise>
 		    <p>아직 평점이 등록되지 않았습니다.</p>
@@ -350,7 +351,7 @@
                e.preventDefault();
                //로그인 폼으로 이동 시킨다.
                location.href=
-                  "${pageContext.request.contextPath}/users/loginform?url=${pageContext.request.contextPath}/movie/detail?num=${dto.num}";
+                  "${pageContext.request.contextPath}/member/loginform?url=${pageContext.request.contextPath}/movie/detail?num=${dto.num}";
             }
          });
       

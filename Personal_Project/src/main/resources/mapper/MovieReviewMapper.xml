@@ -21,6 +21,11 @@
       FROM board_review
       WHERE ref_group=#{ref_group}
    </select>
+   <select id="getData" parameterType="int" resultType="reviewDto">
+      SELECT num,title, writer, review, ref_group, rate, regdate
+      FROM board_review
+      WHERE num=#{num}
+   </select>
    <delete id="delete" parameterType="int">
    	  DELETE FROM board_review
    	  WHERE num=#{num}

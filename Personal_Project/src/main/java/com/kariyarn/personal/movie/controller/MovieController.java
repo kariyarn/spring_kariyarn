@@ -41,7 +41,7 @@ public class MovieController {
 		return map;
 	}
 	//댓글 더보기
-	@RequestMapping("/commu/ajax_review_list")
+	@RequestMapping("/movie/ajax_review_list")
 	public String reviewList(HttpServletRequest request) {
 		try {
 			Thread.sleep(1000);

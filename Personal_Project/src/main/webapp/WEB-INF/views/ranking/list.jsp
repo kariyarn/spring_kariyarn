@@ -72,6 +72,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/include/navbar.jsp"></jsp:include>
 <div class="container">
       <h1>RANKING</h1>
       <div class="row">
@@ -85,7 +86,8 @@
                   </a>
                   <div class="card-body">
                         <p class="card-text"><strong>${tmp.title}</strong></p>
-                        <p class="card-text">${tmp.caption}, 평점 : ${tmp.rate }</p>
+                        <p class="card-text"><small>평점 : <strong>${tmp.rate }⭐</strong></small></p>
+                        <p class="card-text">${tmp.caption}</p>
                   </div>
                </div>
             </div>

@@ -49,8 +49,9 @@
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/include/navbar.jsp"></jsp:include>
 <div class="container">
-      <a href="${pageContext.request.contextPath}/movie/upload_form">사진 업로드 하러 가기</a>
+      <a href="${pageContext.request.contextPath}/movie/upload_form">영화 업로드 하러 가기</a>
       <h1>겔러리 목록 입니다.</h1>
       <div class="row">
       <c:forEach var="tmp" items="${list }">

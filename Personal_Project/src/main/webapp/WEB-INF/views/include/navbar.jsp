@@ -7,9 +7,9 @@
 -->
 <nav class="navbar bg-primary navbar-expand-md" data-bs-theme="dark">
   <div class="container">
-    <a class="navbar-brand" href="${pageContext.request.contextPath }/home">
+    <a class="navbar-brand" href="${pageContext.request.contextPath }/">
       <img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-      Acorn
+      MovieNet
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
           data-bs-target="#navbarText">
@@ -24,7 +24,7 @@
            		<a class="nav-link ${param.current eq 'movie' ? 'active' : ''}" href="${pageContext.request.contextPath }/movie/list">영화</a>
            </li>
            <li class="nav-item">
-           		<a class="nav-link ${param.current eq 'commu' ? 'active' : ''}" href="/${pageContext.request.contextPath}/commu/list">커뮤니티</a>
+           		<a class="nav-link ${param.current eq 'commu' ? 'active' : ''}" href="${pageContext.request.contextPath}/commu/list">커뮤니티</a>
            </li>
          </ul>
          

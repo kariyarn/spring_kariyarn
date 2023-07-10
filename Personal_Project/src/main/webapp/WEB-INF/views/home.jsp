@@ -22,11 +22,9 @@
 </style>
 <body>
 	<%-- webapp/include/navbar.jsp 페이지 포함시키기 --%>
-	<jsp:include page="${pageContext.request.contextPath}/include/navbar">
-		<jsp:param value="movie" name="current"/>
-	</jsp:include>
+	<jsp:include page="/WEB-INF/views/include/navbar.jsp"></jsp:include>
 	<div class="container">
-		<c:choose>
+		<%-- <c:choose>
 			<c:when test="${empty sessionScope.id }">
 				<a href="${pageContext.request.contextPath }/member/loginform">로그인</a>
 				<a href="${pageContext.request.contextPath }/member/signup_form">회원가입</a>
@@ -43,7 +41,7 @@
 			<li><a href="${pageContext.request.contextPath }/ranking/list">RANKING</a></li>
 			<li><a href="${pageContext.request.contextPath }/movie/list">영화 리뷰</a></li>
 			<li><a href="${pageContext.request.contextPath }/commu/list">커뮤니티</a></li>
-		</ul>
+		</ul> --%>
 		<!-- 영화 이미지 추가하기 -->
 		
 			<div class="fotorama"

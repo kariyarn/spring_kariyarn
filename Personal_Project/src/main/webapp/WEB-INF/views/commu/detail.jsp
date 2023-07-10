@@ -100,6 +100,7 @@
 </head>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/include/navbar.jsp"></jsp:include>
    <div class="container">
       
       <%-- 만일 이전글(더 옛날글)의 글번호가 0 가 아니라면(이전글이 존재 한다면) --%>
