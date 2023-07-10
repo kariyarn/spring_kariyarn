@@ -258,7 +258,7 @@
                e.preventDefault();
                //로그인 폼으로 이동 시킨다.
                location.href=
-                  "${pageContext.request.contextPath}/users/loginform?url=${pageContext.request.contextPath}/commu/detail?num=${dto.num}";
+                  "${pageContext.request.contextPath}/member/loginform?url=${pageContext.request.contextPath}/commu/detail?num=${dto.num}";
             }
          });
       
@@ -385,7 +385,7 @@
                   const isMove=confirm("로그인이 필요 합니다. 로그인 페이지로 이동 하시겠습니까?");
                   if(isMove){
                      location.href=
-                        "${pageContext.request.contextPath}/users/loginform?url=${pageContext.request.contextPath}/commu/detail?num=${dto.num}";
+                        "${pageContext.request.contextPath}/member/loginform?url=${pageContext.request.contextPath}/commu/detail?num=${dto.num}";
                   }
                   return;
                }

@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
  * xml문서로 설정하던 bean 설정을 class기반으로 한다.
  */
 
+import com.example.hello2.pc.Computer;
+import com.example.hello2.pc.Cpu;
 import com.example.hello2.util.Remocon;
 import com.example.hello2.util.RemoconImpl;
 import com.example.hello2.util.TvRemocon;
@@ -27,14 +29,24 @@ public class JavaConfig {
 	//Remocon 인터페이스 type이 spring이 관리하는 bean이 되도록 설정해 보세요
 	
 	@Bean
-	public Remocon myRemocon() {
+	public Remocon myRemocon() { //bean의 이름은 => myRemocon
 		Remocon r1 = new RemoconImpl();
 		return r1;
 	}
 	
 	@Bean
-	public Remocon tvRemocon() {
+	public Remocon tvRemocon() { //bean의 이름은 -> tvRemocon
 		Remocon r1 = new TvRemocon();
 		return r1;
+	}
+	@Bean
+	public Cpu getCpu() {
+		return new Cpu();
+	}
+	@Bean
+	public Computer myComputer() {
+		//생성자에 또다른 bean의 참조값이 필요하면 메소드를 호출해서 얻어오면 된다.
+		Computer c1=new Computer(getCpu());
+		return c1;
 	}
 }

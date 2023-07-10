@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
+import com.example.hello2.pc.Computer;
 import com.example.hello2.util.Remocon;
 
 @SpringBootApplication
@@ -24,12 +25,17 @@ public class Boot01Hello2Application {
 			System.out.println("car1과 car2는 같아요");
 		}
 		//스프링이 관리하는 객체 중에서 Remocon type의 참조값 찾아오기
-		Remocon r1 = ctx.getBean(Remocon.class);
+		//Remocon r1 = ctx.getBean(Remocon.class);
+		
+		Remocon r1 = (Remocon)ctx.getBean("myRemocon");
 		r1.up();
 		r1.down();
 		//스프링이 관리하는 객체 중에서 myRemocon이라는 이름의 객체를 얻어와서 원리 type으로 casting해서 사용하기
-		Remocon r2 = (Remocon)ctx.getBean("myRemocon");
+		Remocon r2 = (Remocon)ctx.getBean("tvRemocon");
 		r2.up();
 		r2.down();
+		
+		Computer com1=ctx.getBean(Computer.class);
+		com1.action();
 	}
 }
