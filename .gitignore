@@ -1,3 +1,6 @@
+#upload폴더에 업로드된 파일을 추적하지 않도록 설정
+upload/
+
 # Created by https://www.toptal.com/developers/gitignore/api/windows,eclipse,java,web,maven
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,eclipse,java,web,maven
 

@@ -30,6 +30,7 @@
 			<%-- static 폴더에는 jsp페이지를 위치시킬 수 없다. --%>
 			<li><a href="${pageContext.request.contextPath }/jsp/hello.jsp">jsp페이지</a></li>
 			<li><a href="${pageContext.request.contextPath }/test.jsp">test페이지</a></li>
+			<li><a href="${pageContext.request.contextPath }/cafe/insert_form">카페 글쓰기</a></li>
 		</ul>
 		
 		<h3>공지사항</h3>
