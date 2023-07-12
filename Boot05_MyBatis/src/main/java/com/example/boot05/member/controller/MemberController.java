@@ -50,24 +50,20 @@ public class MemberController {
 		return mView;
 	}
 	
-	@GetMapping("/member/update_from")
-	public String update_form() {
+	@GetMapping("/member/update_form")
+	public String update_form(HttpServletRequest request) {
+		String strNum = request.getParameter("num");
+		int num = Integer.parseInt(strNum);
+		MemberDto dto = dao.getData(num);
+		request.setAttribute("dto", dto);
+
 		return "member/update_form";
 	}
 	
 	@PostMapping("/member/update")
-	public ModelAndView update(ModelAndView mView, HttpServletRequest request) {
-		String strNum = request.getParameter("num");
-		String name = (String)request.getAttribute("name");
-		String addr = (String)request.getAttribute("addr");
-		int num = Integer.parseInt(strNum);
-		MemberDto dto = dao.getData(num);
-		dto.setName(name);
-		dto.setAddr(addr);
-		
-		mView.addObject("dto", dto);
+	public ModelAndView update(ModelAndView mView, MemberDto dto) {
+		dao.update(dto);
 		mView.setViewName("redirect:/member/list");
-		
 		return mView;
 	}
 }

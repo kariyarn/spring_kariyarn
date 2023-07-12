@@ -10,10 +10,12 @@
 <body>
 	<div class="container">
 		<form action="${pageContext.request.contextPath }/member/update" method="post">
+			<label for="num">번호</label>
+			<input type="text" name="num" id="num" value="${dto.num }" readonly />
 			<label for="name">이름</label>
-			<input type="text" name="name" id="name" value="${name }"/>
+			<input type="text" name="name" id="name" value="${dto.name }"/>
 			<label for="addr">주소</label>
-			<input type="text" name="addr" id="addr" value="${addr }"/>
+			<input type="text" name="addr" id="addr" value="${dto.addr }"/>
 			<button type="submit">제출</button>
 		</form>
 	</div>
