@@ -22,6 +22,10 @@
 				</p>
 			</c:otherwise>
 		</c:choose>
+		<ul>
+			<li><a href="${pageContext.request.contextPath }/cafe/list">카페 리스트</a></li>
+		</ul>
+		
 		<h3>공지사항</h3>
 		<ul>
 			<c:forEach var="tmp" items="${noticeList }">
