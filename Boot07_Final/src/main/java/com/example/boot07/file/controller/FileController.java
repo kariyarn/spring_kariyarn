@@ -28,8 +28,6 @@ public class FileController {
 	@Autowired
 	private FileService service;
 	
-	  @Value("${file.location}")
-	  private String fileLocation;
 	  
 	   @RequestMapping("/file/list")
 	   public String list(HttpServletRequest request) {
